@@ -2,6 +2,8 @@
 #include <limits>
 
 using namespace std;
+
+
 struct Weather
 {
     float totalMonthlyRain;
@@ -10,104 +12,168 @@ struct Weather
     float avgTemp;
 };
 
+//enumerator for months of the year
 enum Months {JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER};
+    Months month;
+
+//function for displaying months
+string getMonth(Months month)
+{
+        string monthName;
+        if(month == JANUARY)
+            monthName ="January";
+        else if(month == FEBRUARY)
+            monthName = "February";
+        else if(month == MARCH)
+            monthName = "March";
+        else if(month== APRIL)
+            monthName = "April";
+        else if(month == MAY)
+            monthName ="May";
+        else if(month == JUNE)
+            monthName = "June";
+        else if(month == JULY)
+            monthName = "July";
+        else if(month == AUGUST)
+            monthName = "August";
+        else if(month == SEPTEMBER)
+            monthName = "September";
+        else if(month == OCTOBER)
+                monthName = "October";
+        else if(month == NOVEMBER)
+            monthName = "November";
+        else if(month == DECEMBER)
+            monthName = "December";
+        return monthName;
+    }
 int main()
 {
     const int NUM_MONTHS = 12;
     Weather weatherData[NUM_MONTHS];
-    string monthName;
-    Months month;
-
 
     for(month = JANUARY; month <= DECEMBER; month = static_cast<Months>(month + 1))
     {
-
-    if(month == JANUARY)
-        monthName ="January";
-    else if(month == FEBRUARY)
-        monthName = "February";
-    else if(month == MARCH)
-        monthName = "March";
-    else if(month== APRIL)
-        monthName = "April";
-    else if(month == MAY)
-        monthName ="May";
-    else if(month == JUNE)
-        monthName = "June";
-    else if(month == JULY)
-        monthName = "July";
-    else if(month == AUGUST)
-        monthName = "August";
-    else if(month == SEPTEMBER)
-        monthName = "September";
-    else if(month == OCTOBER)
-        monthName = "October";
-    else if(month == NOVEMBER)
-        monthName = "November";
-    else if(month == DECEMBER)
-        monthName = "December";
-
+        //get total rainfall
+        string displayMonth = getMonth(month);
         cout << "Enter the Total Rainfall for "
-            << monthName
+            << displayMonth
              << ": ";
         cin >>weatherData[month].totalMonthlyRain;
         while(cin.fail())
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "\nInvalid entry. Enter a number.\n"
-                     << "\nEnter the Total Rainfall for Month "
-                     << monthName
+                cout << "Invalid entry. Enter a number.\n"
+                     << "Enter the Total Rainfall for Month "
+                     << displayMonth
                      << ": ";
                 cin >> weatherData[month].totalMonthlyRain;
             }
-
+        //get highest temperature
         cout << "\nEnter the Highest Temperature for "
-            << monthName
+            << displayMonth
              << ": ";
         cin >>weatherData[month].highTemp;
         while(cin.fail())
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "\nInvalid entry. Enter a number: ";
+                cout << "\nInvalid entry. Enter a number.\n"
+                << "Enter the Highest Temperature for Month "
+                << displayMonth
+                << ": ";
                 cin >> weatherData[month].highTemp;
             }
-        if(weatherData[month].highTemp > 140 || weatherData[month].highTemp <-100)
+        while(weatherData[month].highTemp > 140 || weatherData[month].highTemp <-100)
         {
             cout << "\nInvalid entry. Please enter a temperature between -100 and 140 degrees Fahrenheit.";
             cout << "\n\nEnter the Highest Temperature for "
-            << monthName
+             << displayMonth
              << ": ";
             cin >>weatherData[month].highTemp;
-        }
-
-
-        cout << "\nEnter the Lowest Temperature for"
-            << monthName
-             << ": ";
-        cin >>weatherData[month].lowTemp;
-                while(cin.fail())
+            while(cin.fail())
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "\nInvalid entry. Enter a number: ";
+                cout << "\nInvalid entry. Enter a number.\n"
+                << "Enter the Highest Temperature for "
+                << displayMonth
+                << ": ";
+                cin >> weatherData[month].highTemp;
+            }
+        }
+
+
+        //get lowest temperature
+        cout << "\nEnter the Lowest Temperature for "
+            << displayMonth
+             << ": ";
+        cin >>weatherData[month].lowTemp;
+        while(cin.fail())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "\nInvalid entry. Enter a number.\n"
+                << "Enter the Lowest Temperature for "
+                << displayMonth
+                << ": ";
                 cin >> weatherData[month].lowTemp;
             }
-        if(weatherData[month].lowTemp > 140 || weatherData[month].lowTemp <-100)
+        while(weatherData[month].lowTemp > 140 || weatherData[month].lowTemp <-100)
         {
             cout << "\nInvalid entry. Please enter a temperature between -100 and 140 degrees Fahrenheit.";
             cout << "\n\nEnter the Highest Temperature for "
-             << monthName
+             << displayMonth
              << ": ";
             cin >>weatherData[month].lowTemp;
+            while(cin.fail())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "\nInvalid entry. Enter a number.\n"
+                << "Enter the Lowest Temperature for "
+                << displayMonth
+                << ": ";
+                cin >> weatherData[month].lowTemp;
+            }
         }
 
+        //get Average temperature
         cout << "\nEnter the Average Temperature for "
-             << monthName
+             << displayMonth
              << ": ";
         cin >>weatherData[month].avgTemp;
-        cout << "\n";
+        while(cin.fail())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "\nInvalid entry. Enter a number.\n"
+                << "Enter the Average Temperature for "
+                << displayMonth
+                << ": ";
+                cin >> weatherData[month].avgTemp;
+            }
+        while(weatherData[month].avgTemp > 140 || weatherData[month].avgTemp <-100)
+        {
+            cout << "\nInvalid entry. Please enter a temperature between -100 and 140 degrees Fahrenheit.";
+            cout << "\n\nEnter the Average Temperature for "
+             << displayMonth
+             << ": ";
+            cin >>weatherData[month].avgTemp;
+            while(cin.fail())
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "\nInvalid entry. Enter a number. ";
+                cout <<"\nEnter the Average Temperature for "
+                <<displayMonth
+                <<": ";
+                cin >> weatherData[month].avgTemp;
+                cout <<"/n";
+            }
+        }
+
+
 
     }
 
